@@ -92,7 +92,7 @@
 
 % *** CITATION PACKAGES ***
 %
-\usepackage{cite}
+% \usepackage{cite}
 % cite.sty was written by Donald Arseneau
 % V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
 % \cite{} output to follow that of the IEEE. Loading the cite package will
@@ -108,8 +108,8 @@
 % http://www.ctan.org/pkg/cite
 % The documentation is contained in the cite.sty file itself.
 
-
-
+\usepackage[style=ieee]{biblatex}
+\addbibresource{instagram-fake-detection.bib}
 
 
 
@@ -433,13 +433,59 @@ Subsubsection text here.
 
 \section{Problem Formulation}
 
-Within the current body of literature, the problem of finding effective general models on real world datasets is a key issue. The tendency for machine learning models to over-fit to a specific dataset is a significant issue in Instagram automated and malicious account detection due to the ability of malicious users to architect fake accounts specifically to bypass bias' within datasets. As the number of features within a dataset grows, the amount of data required to make a feature statistically significant grows exponentially, commonly referred to as the \textit{curse of dimensionality}. As such it is \textit{more effective} to attempt to reduce the size of a given feature set.
+Within the current body of literature, the problem of finding effective general models on real world datasets is a key issue. The tendency for machine learning models to over-fit to a specific dataset is a significant issue in Instagram automated and malicious account detection due to the ability of malicious users to architect fake accounts specifically to bypass bias' within datasets. As the number of features within a dataset grows, the amount of data required to make a feature statistically significant grows exponentially, commonly referred to as the \textit{curse of dimensionality}. As such it is \textit{more effective} to attempt to reduce the size of a given feature set. Additionally, they have the property of increasing interpratibility of machine learning models by selecting the most relevant features of a machine learning model.
 
-Feature selection methods can be found all throughout machine learning literature. Feature selection can broadly be classified into two main approaches, a filtration approach where you attempt to \textit{prune} statistically insignificant features in a dataset, and hybrid approaches where you combine the machine learning model with the feature selection process. Within the filtration approaches, there also exists statistical approaches as well as discrete combinatorial approaches.
+Feature selection methods can be found all throughout machine learning literature. Feature selection can broadly be classified into two main approaches, involving \textit{pruning} statistically insignificant features in a dataset, and hybrid approaches\cite{AkyonKalfaoglu2019,KaushikEtAl2022} which involves the machine learning model in the feature selection process. Within the filtration approaches, there also exists statistical approaches favoured in practice\cite{PedregosaEtAl2011} as well as discrete combinatorial approaches\cite{MathiesonEtAl2017}.
 
-Within the combinatorial and hybrid approaches to feature selection, due to the compuatational difficulty of the problems, meta-heuristic algorithms have been incredibly successful at tackling the problem.
+Within the combinatorial and hybrid approaches to feature selection, due to the compuatational difficulty of the problems, meta-heuristic algorithms have been incredibly successful at tackling the problem, see\cite{AkyonKalfaoglu2019,MathiesonEtAl2017}.
 
 \subsection{Combinatorial Feature Selection}
+
+In literature, combinatorial feature selection is identified as the $(\alpha,\beta)$-$k$-Feature Selection $k$-Feature Selection problem which is a special case of the $(\alpha,\beta)$ problem where $\alpha=1,\beta=0$.
+
+\begin{definition}\label{def:k-feature-selection}
+	The $k$-Feature Selection can be formulated directly in the language of instagram fake profile detection, where the problem has a set $X$ of $m$ users which are either real or fake. Additionally, there is $n$ features represented as binary values and a positive integer $k$.
+
+	The $k$-Feature Selection problem is to decide if there exist a set $F$ of features such that,
+
+	\begin{enumerate}
+		\item $|F| \leq k$
+		\item No real and fake profile in $X$ have identical feature vectors.
+	\end{enumerate}
+\end{definition}
+
+To see a concrete example, consider the following features.
+
+\begin{enumerate}
+	\item Has a Bio
+	\item Has a Complex Name (with non-trivial characters and words)
+	\item Is Validated Account
+	\item Has a High Following to Follower Ratio
+\end{enumerate}
+
+We can consider the table.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{| c c c c | c |}
+		\hline
+		1 & 2 & 3 & 4 & isFake \\ [0.5ex]
+		\hline
+		0 & 1 & 1 & 1 & 0      \\
+		0 & 0 & 0 & 0 & 0      \\
+		1 & 0 & 0 & 1 & 0      \\
+		1 & 0 & 0 & 0 & 1      \\
+		0 & 1 & 0 & 0 & 1      \\
+		0 & 1 & 0 & 0 & 1      \\ [1ex]
+		\hline
+	\end{tabular}
+	\caption{Example matrix formed by representing the users as binary vectors.}
+	\label{table:k-feat-select-example}
+\end{table}
+
+Clearly, we can see that if $k=3$ feature $1,2,4$ would form a valid feature set, however, $1,2,3$ would not because rows 3 and 4 contain the same data for two users but one user is real and another is fake. This problem is NP-complete by reduction to $k$-Vertex Cover\cite{DaviesRussell1994} additionally this problem is also known to be $w[2]$-complete\cite{CottaMoscato2003}, which effectively means that there is not even a polynomial time parameterisation.
+
+The $(\alpha,\beta)$-$k$-Feature Selection problem is an extension that also considers the degree of relevence of each entry within the feature matrix. $(\alpha,\beta)$-$k$-Feature Selection has been successfully applied to datasets for efficient classification tasks\cite{MathiesonEtAl2017,NaeniSalehipour2021,RochadePaulaEtAl2016a}. However, in terms of computational complexity, these results suggest the combinatorial filter based techniques are effectively intractable.
 
 \subsection{Hybrid Feature Selection}
 
@@ -593,14 +639,7 @@ The authors would like to thank...
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
-\begin{thebibliography}{1}
-
-	\bibitem{IEEEhowto:kopka}
-	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-\end{thebibliography}
-
+\printbibliography
 
 
 
