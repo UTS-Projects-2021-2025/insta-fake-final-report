@@ -7,6 +7,7 @@ jobs:
     name: Build Document
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
     - uses: WtfJoke/setup-tectonic@v3.0.2
       with:
         # The GITHUB_TOKEN secret. Used for querying tectonic releases
