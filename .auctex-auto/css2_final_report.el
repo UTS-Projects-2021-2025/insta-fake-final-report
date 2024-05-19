@@ -5,10 +5,10 @@
                      '(("IEEEtran" "conference")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("biblatex" "style=ieee")))
-   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
-   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
+   (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-delims-local "url")
+   (add-to-list 'LaTeX-verbatim-macros-with-delims-local "path")
    (TeX-run-style-hooks
     "latex2e"
     "preamble"
@@ -31,7 +31,13 @@
     "fig:xg-roc-curve-reduced"
     "table:svm-results"
     "fig:svm-roc-curve"
-    "fig:svm-roc-curve-reduced")
+    "fig:svm-roc-curve-reduced"
+    "table:dt-results"
+    "fig:dt-roc-curve"
+    "fig:dt-roc-curve-reduced"
+    "table:rf-results"
+    "fig:rf-roc-curve"
+    "fig:rf-roc-curve-reduced")
    (LaTeX-add-bibliographies
     "instagram-fake-detection"))
  :latex)
