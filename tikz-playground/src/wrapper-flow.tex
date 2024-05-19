@@ -1,0 +1,11 @@
+\begin{tikzpicture}[node distance=3.5cm]
+    \node (node1) [statebox] {Feature Set};
+    \node (node2) [statebox,right of=node1] {Select Features};
+    \node (node3) [statebox,right of=node2] {ML Algorithm};
+    \node (node4) [statebox,below of=node2] {Analysis};
+
+    \draw [arrow] (node1) -- (node2);
+    \draw [arrow] (node2) -- (node3);
+    \draw [arrow] (node3) -- (node4);
+    \draw [arrow] (node4) -- (node2);
+\end{tikzpicture}

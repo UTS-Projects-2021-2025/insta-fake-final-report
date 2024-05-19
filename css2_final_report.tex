@@ -320,7 +320,7 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{Bare Demo of IEEEtran.cls\\ for IEEE Conferences}
+\title{Optimal Feature Selection for Instagram Fake Profile Detection using a Memetic Algorithm Approach}
 
 
 % author names and affiliations
@@ -380,6 +380,7 @@
 % use for special paper notices
 %\IEEEspecialpapernotice{(Invited Paper)}
 
+\graphicspath{{./figures}}
 
 
 
@@ -410,28 +411,51 @@
 
 
 \section{Introduction}
-% no \IEEEPARstart
-This demo file is intended to serve as a ``starter file''
-for IEEE conference papers produced under \LaTeX\ using
-IEEEtran.cls version 1.8b and later.
-% You must have at least 2 lines in the paragraph with the drop letter
-% (should never be an issue)
-I wish you the best of success.
 
-\hfill mds
+The rise of fake profiles on social media is a critical issue, spreading misinformation and manipulating public opinion. These accounts undermine public trust, influence political outcomes, affect public health responses, and destabilise societies globally. Notable incidents include the 2016 U.S. Presidential Election, the COVID-19 pandemic, and the political crisis in Myanmar, where fake profiles significantly amplified misinformation\cite{ZoltanWeigand2023,AlharbiEtAl2022}.
 
-\hfill August 26, 2015
+The importance of addressing this problem is clear. Fake accounts distort social media metrics, tricking algorithms and posing security risks through scams and identity theft. Ensuring the integrity of democratic processes, public health, social stability, platform trust, and security is crucial.
 
-\subsection{Subsection Heading Here}
-Subsection text here.
+It is suggested that there could be as many as 100 million bots proliferating through Instagram, it is also suggested that as much as 10 percent of instagram accounts are malicious or fake\cite{Williams2018}.
+
+Manual detection of fake accounts is impractical due to their diversity and volume. Automated detection techniques are essential. Indicators include consistent activity patterns, lack of time zone variations, and unusual engagement metrics. Classification methods, such as clustering similar fake accounts and identifying commonalities, enhance detection.
+
+There has been a significant amount of research on classification techniques to automate the process of fake and malicious account detection on Instagram and wider social media\cite{EkosputraEtAl2021,EzarfelixEtAl2022}. However, the commonly used methods of feature selection remain linear using only genetic algorithms. This paper introduces a novel memetic approach for optimal feature selection in order to achieve more generalisable machine learning models.
+
+\section{Related Work}\label{sec:related-work}
+
+Fake profile detection for social media has been a prevalent issue throughout literature, methods to automate detection have also been consistent within literature.
+
+\subsection{Classification Methods}
+
+Instagram and by extension, social media fake and malicious profile detection is a classical binary classification problem. In literature, Support Vector Machines, Logistic Regression, Naive Bayes, Decision Trees, Random Forest Ensemble classifiers and Aritificial Neural Networks are the standard approaches, with significant research showing both Random Forest, Artificial Neural Networks and sometimes Support Vector Machines as the most effective classification algorithms\cite{AkyonKalfaoglu2019,EkosputraEtAl2021}.
+
+Classification methods are essential in detecting fake and malicious social media accounts. These methods categorise profiles based on various features extracted from user data. Traditional classification techniques have primarily relied on metadata such as the number of followers, following-to-follower ratios, and engagement metrics. Recent advancements, however, have expanded the scope to include content-based features, which analyse the actual posts and interactions of users.
+
+A wide range of classification algorithms has been explored in the literature, with XGBoost and Random Forest emerging as the state-of-the-art techniques due to their robustness and high accuracy in handling large and complex datasets\cite{AkyonKalfaoglu2019,EkosputraEtAl2021,HarishEtAl2023,KaushikEtAl2022}. These methods have been successful in creating models that generalise well across different datasets, improving the detection rates of fake accounts.
+
+One notable approach is the use of oversampling techniques to address class imbalance in training datasets. Akyon and Kalfaoglu\cite{AkyonKalfaoglu2019} were among the first to employ SMOTE-NC (Synthetic Minority Over-sampling Technique for Nominal and Continuous data) to enhance the training of machine learning models. This technique, along with other oversampling methods, has been critical in ensuring that classifiers perform well even when the proportion of fake accounts is significantly lower than genuine accounts.
+
+Despite these advancements, the reliance on metadata alone has shown limitations, particularly due to the evolving nature of social media interactions and the tactics used by malicious accounts to evade detection. This has led to an increased interest in incorporating content-based features, which significantly expand the feature space and necessitate effective feature reduction techniques\cite{EzarfelixEtAl2022}.
+
+\subsection{Artificial Noise}
+
+Artificial noise refers to the deliberate introduction of irrelevant or misleading data into a dataset to challenge the robustness of classification models. In the context of fake profile detection, artificial noise can manifest in various forms, such as synthetic user interactions, fake engagement metrics, and fabricated posts. The presence of such noise can significantly degrade the performance of machine learning models by increasing the complexity and reducing the signal-to-noise ratio.
+
+Various noise reduction and filtering techniques have been proposed to mitigate the effects of artificial noise. One common approach is to use statistical methods to identify and remove outliers that do not conform to the expected patterns of legitimate user behaviour. Additionally, more sophisticated methods such as robust principal component analysis (PCA) and autoencoders have been utilised to detect and eliminate noise from high-dimensional data\cite{SallahEtAl2022,SansonettiEtAl2020}.
+
+\subsection{Gradient Descent Optimisation}
+
+Gradient descent optimisation is a fundamental technique used in training machine learning models, including those for fake profile detection. Machine learning techniques bases on these methods include AdaBoost, XGBoost. It involves iteratively adjusting the model parameters to minimise a predefined loss function. The effectiveness of gradient descent algorithms depends on several factors, including the learning rate, the shape of the loss function, and the presence of local minima.
+
+In the context of classification for fake profile detection, gradient descent optimisation helps in fine-tuning the weights of the model to improve its accuracy. Various forms of gradient descent, such as stochastic gradient descent (SGD), mini-batch gradient descent, and adaptive gradient algorithms like Adam, have been employed to enhance the training process. These methods aim to balance the convergence speed and stability, ensuring that the model achieves an optimal solution efficiently\cite{PurbaEtAl2020}.
+
+\subsection{Bias and Population Meta-heuristic Feature Selection}
+
+Feature selection as described in~\autoref{sec:problem-formulation} commonly utilise population based meta-heuristics. Mostly, as an attempt to mitigate bias in dataset. Mined datasets for the applications of automated fake and malicious profile tend to have a problem where they are a highly skewed representation of the overall population, and genetic algorithms form a mitigation technique within this problem\cite{AkyonKalfaoglu2019,KaushikEtAl2022}. Population meta-heuristics have also been popular for more general feature selection variations, such as in\cite{AltunbeyOzbayAlatas2019,ArabAlfi2015,CottaEtAl2018}. However, due to the overwhelming overreliance on genetic algorithms, there is room for potential expansion in the variety of meta-heuristic approaches available.
 
 
-\subsubsection{Subsubsection Heading Here}
-Subsubsection text here.
-
-\section{Related Work}
-
-\section{Problem Formulation}
+\section{Problem Formulation}\label{sec:problem-formulation}
 
 Within the current body of literature, the problem of finding effective general models on real world datasets is a key issue. The tendency for machine learning models to over-fit to a specific dataset is a significant issue in Instagram automated and malicious account detection due to the ability of malicious users to architect fake accounts specifically to bypass bias' within datasets. As the number of features within a dataset grows, the amount of data required to make a feature statistically significant grows exponentially, commonly referred to as the \textit{curse of dimensionality}. As such it is \textit{more effective} to attempt to reduce the size of a given feature set. Additionally, they have the property of increasing interpratibility of machine learning models by selecting the most relevant features of a machine learning model.
 
@@ -457,10 +481,10 @@ In literature, combinatorial feature selection is identified as the $(\alpha,\be
 To see a concrete example, consider the following features.
 
 \begin{enumerate}
-	\item Has a Bio
-	\item Has a Complex Name (with non-trivial characters and words)
-	\item Is Validated Account
-	\item Has a High Following to Follower Ratio
+	\item Has a biography.
+	\item Has a complex name (with non-trivial characters and words).
+	\item Is validated account.
+	\item Has a high following to follower ratio.
 \end{enumerate}
 
 We can consider the table.
@@ -485,19 +509,118 @@ We can consider the table.
 
 Clearly, we can see that if $k=3$ feature $1,2,4$ would form a valid feature set, however, $1,2,3$ would not because rows 3 and 4 contain the same data for two users but one user is real and another is fake. This problem is NP-complete by reduction to $k$-Vertex Cover\cite{DaviesRussell1994} additionally this problem is also known to be $w[2]$-complete\cite{CottaMoscato2003}, which effectively means that there is not even a polynomial time parameterisation.
 
-The $(\alpha,\beta)$-$k$-Feature Selection problem is an extension that also considers the degree of relevence of each entry within the feature matrix. $(\alpha,\beta)$-$k$-Feature Selection has been successfully applied to datasets for efficient classification tasks\cite{MathiesonEtAl2017,NaeniSalehipour2021,RochadePaulaEtAl2016a}. However, in terms of computational complexity, these results suggest the combinatorial filter based techniques are effectively intractable.
+The $(\alpha,\beta)$-$k$-Feature Selection problem is an extension that also considers the degree of relevence of each entry within the feature matrix. $(\alpha,\beta)$-$k$-Feature Selection has been successfully applied to datasets for efficient classification tasks\cite{MathiesonEtAl2017,NaeniSalehipour2021,RochadePaulaEtAl2016}. However, in terms of computational complexity, these results suggest the combinatorial filter based techniques are effectively intractable.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[scale=0.5]{filter-flow.pdf}
+		\caption{Filter flow for feature selection}\label{fig:feat-filter-flow}
+	\end{center}
+\end{figure}
 
 \subsection{Hybrid Feature Selection}
 
+While combinatorial feature selection methods sat clearly in the polynomial time hierarchy, hybrid feature selection methods cannot be formulated into nice computational problems. Hybrid methods effectively utilise a oracle subroutine to calculate the distance function, and in doing so effectively imply infinite computing power\footnote{Since an oracle turing machine can simulate all problems even undecidable problems.}.
+
+We can however, formulate the problem and draw connections between integer programming\footnote{also suggesting that there is linear programming and quantum solutions the feature selection problem.}. Consider the following formulation. Here $\mu : \{ 0, 1 \}^{n} \to \R$ is the measure of a feature vector, with inputs $X$ a set of features. Let $v[i]$ denote the $i$'th entry of a vector.
+
+\begin{definition}
+	Given vectors $v\in \{0,1\}^{n}$, find $\text{min}\{ k \mid \forall v\in \{0,1\}^{n}, k=\sum_{i\in[n]} v[i] \}$ such that the image $\mu(v)$ is greater than an arbitrary accuracy bound.
+\end{definition}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[scale=0.5]{wrapper-flow.pdf}
+		\caption{Wrapper flow for feature selection}\label{fig:feat-wrapper-flow}
+	\end{center}
+\end{figure}
+
+As in~\autoref{fig:feat-wrapper-flow}, wrapper feature selection is distinguishable to filter feature selection because the machine learning algorithm is called as a subroutine.
+
 \subsection{Meta-Heuristics}
+
+Since feature selection is thought to be computationally intractable, meta-heuristics have become an efficient way to compute optimal solutions. Meta-heuristics tend to exist in two broad categories.
+
+\paragraph{Population based meta-heuristics.} A population meta-heuristic is an efficient method at searching a large and high dimensional solution space and finding local optima. This is known to be effective and even provably optimal in high dimensional search spaces due to the `No Free Lunch Theorems'. Population meta-heuristics include, genetic algorithms, ant-colony optimisation algorithms, particle swarm optimisation algorithms.
+
+\paragraph{Local Search based meta-heuristics.} Local search meta-heuristics are algorithms that attempt to optimise an objective function globally. The main drawback is that local search procedures have a tendency to \textit{get stuck} optmising a function that is not the actual global optimum. The most popular local search meta-heuristics include hill climbing, tabu search and simulated annealing.
+
+\paragraph{Memetic algorithms.} A memetic algorithm is an algorithm which presents a hybrid approach between local search and population meta-heuristics. The main idea is as follows, first run a genetic algorithm, at each local optimum run a few rounds of a local search meta-heuristic. Repeat the evolutionary process. Memetic algorithms historically have been incredibly effective at tackling optimisation problems. They also include the additional added benefit that a they will always perform better than their counterpart of just a population meta-heuristic or just a local search meta-heuristic, presenting the open problem of applying memetic algorithms to bias mitigation procedures in feature selection.
 
 \subsection{Computational Considerations}
 
-\section{Proposed Solutions}
+Genetic algorithms for feature selection while prevalent have a non-trivial computational cost even when ignoring implementation details. It was an interesting question to attempt to understand the complexity of each problem and determine for which parameters different algorithms are effective. For a concrete analysis of the combinatorial problem we can direct readers to\cite{MathiesonEtAl2017,CottaMoscato2003}.
 
-\subsection{Memetic Algorithms}
+In order to understand the complexity of a hybrid algorithm, let $T$ denote the computational cost of a machine learning algorithm. Observe for a vector of $n$ features with each feature being represented in $\{0,1\}^{n}$. Clearly, we will get the trivial upper bound of $O(T\cdot 2^{n})$, since there is $n$ many entries of two states for a brute force search of all possible features. Assume that a genetic algorithm has a population as a positive integer $p$ and $k$ iterations, since the addition of a local search procedure is asymptotically smaller than $p$ and $k$, note that the iterations of a memetic algorithm have the upper bound of $O(T\cdot pk)$ since we have $k$ many generations of enumerating a population of size $p$. Also note that a brute force solution grows proportionally based on the size of the input $n$ features, where a memetic algorithm has a fixed number of iterations. If we fix the population parameter $p=40$ and the generations $k=50$, note that we obtain an algorithm upper bounded by $O(T\cdot pk)$ iterations.
+
+Here we can compare with various input sizes.
+
+\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{| c c c |}
+			\hline
+			Number of Features & Brute-Force ($2^{n}$) & Memetic Alg ($2000$) \\ [0.5ex]
+			\hline
+			10                 & 1024                  & 2000                 \\
+			15                 & 32768                 & 2000                 \\
+			100                & $126765060022\ldots$  & 2000                 \\
+			1000               & Uncomputable          & 2000                 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{Comparison between brute force and memetic approach}
+	\label{table:memetic-brute-force}
+\end{table}
+
+Clearly, by~\autoref{table:memetic-brute-force} we gain no improvment over a brute force solution for $n=10$ without adjustment of parameters, however, if $n=100$ the input quickly becomes too large to handle, suggesting better performance for exponentially bigger inputs.
+
+\section{Proposed Solutions}\label{sec:solutions}
+
+Here we give an overview of our solutions to the feature selection process.
+
+\subsection{Memetic Algorithms for Feature Selection}
+
+Our memetic algorithm implementations were based on both the Handbook of Memetic Algorithms\cite{CottaEtAl2018}, and hybrid gradient descent memetic algorithm approaches\cite{ArabAlfi2015}.
+
 
 \section{Experiments}
+
+In this section, we aim to evaluate the performance of different classifiers, including Decision Trees (DT), Random Forest (RF), Support Vector Machines (SVM), and the XGBoost Classifier, with and without feature optimization using the memetic algorithm. The primary objective is to determine the impact of feature selection on classifer performance in Instagram fake profile detection. The experimental setup involves implementing, tuning, and testing all classifiers with the reduced feature set on a DeepNote Notebook.
+
+\subsection{Experimental Setup}
+
+\subsubsection{Dataset Description}
+
+We utilised two key datasets for training and testing the classifiers: the Kaggle Insta Final dataset and our custom-curated Insta Fake dataset, which includes fake profiles, and the Insta Auto dataset, consisting of automated bot accounts. These datasets offer a diverse range of instances and class distributions, providing a robust foundation for experimentation.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[scale=0.2]{correlation-heatmap}
+		\caption{Correlation Heatmap}\label{fig:correlation-heatmap}
+	\end{center}
+\end{figure}
+
+The correlation heatmap~\autoref{fig:correlation-heatmap} showing the pairwise correlation between different features in the dataset. This visualisation helps identify patterns and relationships between variables, guiding feature selection and preprocessing decisions.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[scale=0.2]{class-distribution}
+		\caption{Class Distribution Bar Chart}\label{fig:class-distribution}
+	\end{center}
+\end{figure}
+
+The bar chart~\autoref{fig:class-distribution} displays the class distribution within the dataset based on the 'is_fake' label. This visualisation illustrates the balance or imbalance between fake and genuine profiles, providing insights into potential class distribution issues for classification tasks.
+
+\subsection{Preprocessing}
+
+Preprocessing steps included data cleaning, normalisation, and feature engineering to ensure the datasets were suitable for training the classifiers. Additionally, hyperparameter tuning was performed for penalty factors directly correlating to feature optimisation and the number of features selected for each cycle.
+
+\subsection{Implementation Details}
+
+Before implementing the memetic algorithm for feature optimisation with each classifier, We first tuned the memetic algorithm using the Decision Tree classifier. The parameters and configurations of the memetic algorithm were customised to optimise feature selection specifically for the Decision Tree classifier. There were three implementations of the memetic algorithm, each incorporating different features and achieving different results.
+
+
+\paragraph{Alpha}
 
 \section{Conclusion}
 
@@ -596,16 +719,16 @@ The $(\alpha,\beta)$-$k$-Feature Selection problem is an extension that also con
 % \fnbelowfloat command of the stfloats package.
 
 
+\appendix
 
+\section{Code}
 
-\section{Conclusion}
-The conclusion goes here.
+Here is the implementations.
 
-
-
-
-% conference papers do not normally have an appendix
-
+\begin{itemize}
+	\item DeepNote Code, managed by Raeyen, Group Contribution \href{https://deepnote.com/workspace/yes-c049-5ed54f34-9a07-49d4-91a2-b1419cbace6e/project/Raeyen-Nuttalls-Untitled-project-15377316-ffd4-45cc-9912-cba9081d5b2e/notebook/Memetic%20Algorithm-412d34e5cc8042b893fdd10bccc6b6c3}{Deep Note Notebook}
+	\item Repository for alternative code and OCaml Multi-Threaded memetic algorithm \href{https://github.com/UTS-Projects-2021-2025/insta-fake-profile-detection}{Insta Fake Profile Detection Repository}.
+\end{itemize}
 
 % use section* for acknowledgment
 \section*{Acknowledgment}
@@ -639,6 +762,7 @@ The authors would like to thank...
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
+\newpage
 \printbibliography
 
 

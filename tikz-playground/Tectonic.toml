@@ -1,0 +1,17 @@
+[doc]
+name = "tikz-playground"
+bundle = "https://data1.fullyjustified.net/tlextras-2022.0r0.tar"
+
+[[output]]
+name = "default"
+type = "pdf"
+
+[[output]]
+name = "filter-flow"
+type = "pdf"
+index = "filter-flow.tex"
+
+[[output]]
+name = "wrapper-flow"
+type = "pdf"
+index = "wrapper-flow.tex"
