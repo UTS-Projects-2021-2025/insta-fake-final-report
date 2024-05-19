@@ -10,3 +10,5 @@ tmp/
 *.out
 *.aux
 *.toc
+
+!figures/*.pdf

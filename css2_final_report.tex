@@ -20,7 +20,7 @@
 %% Legal Notice:
 %% This code is offered as-is without any warranty either expressed or
 %% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% FITNESS FOR A PARTICULAR PURPOSE!
 %% User assumes all risk.
 %% In no event shall the IEEE or any contributor to this code be liable for
 %% any damages or losses, including, but not limited to, incidental,
@@ -136,7 +136,7 @@
 % graphicx was written by David Carlisle and Sebastian Rahtz. It is
 % required if you want graphics, photos, etc. graphicx.sty is already
 % installed on most LaTeX systems. The latest version and documentation
-% can be obtained at: 
+% can be obtained at:
 % http://www.ctan.org/pkg/graphicx
 % Another good source of documentation is "Using Imported Graphics in
 % LaTeX2e" by Keith Reckdahl which can be found at:
@@ -359,10 +359,10 @@
 
 % for over three affiliations, or if they all won't fit within the width
 % of the page, use this alternative format:
-% 
+%
 %\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
 %Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
+%James Kirk\IEEEauthorrefmark{3},
 %Montgomery Scott\IEEEauthorrefmark{3} and
 %Eldon Tyrell\IEEEauthorrefmark{4}}
 %\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
@@ -513,7 +513,7 @@ The $(\alpha,\beta)$-$k$-Feature Selection problem is an extension that also con
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[scale=0.5]{filter-flow.pdf}
+		\includegraphics[width=2.5in]{filter-flow.pdf}
 		\caption{Filter flow for feature selection}\label{fig:feat-filter-flow}
 	\end{center}
 \end{figure}
@@ -530,7 +530,7 @@ We can however, formulate the problem and draw connections between integer progr
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[scale=0.5]{wrapper-flow.pdf}
+		\includegraphics[width=2.5in]{wrapper-flow.pdf}
 		\caption{Wrapper flow for feature selection}\label{fig:feat-wrapper-flow}
 	\end{center}
 \end{figure}
@@ -595,7 +595,7 @@ We utilised two key datasets for training and testing the classifiers: the Kaggl
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[scale=0.2]{correlation-heatmap}
+		\includegraphics[width=2.5in]{correlation-heatmap}
 		\caption{Correlation Heatmap}\label{fig:correlation-heatmap}
 	\end{center}
 \end{figure}
@@ -604,23 +604,130 @@ The correlation heatmap~\autoref{fig:correlation-heatmap} showing the pairwise c
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[scale=0.2]{class-distribution}
+		\includegraphics[width=2.5in]{class-distribution}
 		\caption{Class Distribution Bar Chart}\label{fig:class-distribution}
 	\end{center}
 \end{figure}
 
-The bar chart~\autoref{fig:class-distribution} displays the class distribution within the dataset based on the 'is_fake' label. This visualisation illustrates the balance or imbalance between fake and genuine profiles, providing insights into potential class distribution issues for classification tasks.
+The bar chart~\autoref{fig:class-distribution} displays the class distribution within the dataset based on the `is fake' label. This visualisation illustrates the balance or imbalance between fake and genuine profiles, providing insights into potential class distribution issues for classification tasks.
 
 \subsection{Preprocessing}
 
-Preprocessing steps included data cleaning, normalisation, and feature engineering to ensure the datasets were suitable for training the classifiers. Additionally, hyperparameter tuning was performed for penalty factors directly correlating to feature optimisation and the number of features selected for each cycle.
+Preprocessing steps included data cleaning, normalisation, and feature engineering to ensure the datasets were suitable for training the classifiers. Additionally, hyper-parameter tuning was performed for penalty factors directly correlating to feature optimisation and the number of features selected for each cycle.
 
 \subsection{Implementation Details}
 
 Before implementing the memetic algorithm for feature optimisation with each classifier, We first tuned the memetic algorithm using the Decision Tree classifier. The parameters and configurations of the memetic algorithm were customised to optimise feature selection specifically for the Decision Tree classifier. There were three implementations of the memetic algorithm, each incorporating different features and achieving different results.
 
+We implemented three different mememtic algorithms, one memetic algorithm focused on generating the smallest feature set by tuning the objective function to place higher weight on smaller feature sets. Another memetic algorithm focused on generating the highest accuracy score. Finally, our last memetic algorithm focused on performance by exploiting parallelism and the efficient ocaml language. The implementations can be found in the appendix.
 
-\paragraph{Alpha}
+Once tuned, the parameters of the genetic algorithm were then utilised for feature optimisation with the other classifiers, including Random Forest, SVM, and XGBoost. This approach ensured that the genetic algorithm tailored to each classifier's requirements, maximising its effectiveness in selecting relevant features.
+
+\subsection{Optimal Feature Selection}
+
+Using the insta final dataset, we started with the following 12 features.
+
+\begin{enumerate}
+\item Edge Followed By
+\item Edge Follow
+\item Username Length
+\item Username Has Numbers
+\item Full Name Length
+\item Full Name Has Numbers
+\item Is Private
+\item Is Recently Joined
+\item Has Channel
+\item Is Business Account
+\item Has Guides
+\item Has External Url
+\end{enumerate}
+
+We managed an impressive $50\%$ reduction of features by reducing the dataset to 6 features, listed below.
+
+\begin{enumerate}
+\item Edge Followed By
+\item Edge Follow
+\item Username Has Numbers
+\item Is Private
+\item Is Recently Joined
+\item Is Business Account
+\end{enumerate}
+
+\subsection{Experimental results}
+
+When we compare the results of different classifiers we see we obtain a marginal loss of performance and accuracy of the classifiers, remembering that while these results are indicative of the scores on the dataset, they are not indicative of the generality of the model. In this sense any score above 90 percent accuracy is a good result, but the key improvement is the reduced feature set.
+
+\subsubsection{XG-Boost}
+
+For the xg-boost classifier, in general we found a negligible performance loss with the reduced feature set.
+
+\begin{table}[h!]
+    \begin{center}
+	\begin{tabular}{| c | c c |}
+		\hline
+		Features & F1-Score & AUC-Score\\ [0.5ex]
+		\hline
+		All Features & 0.97 & 0.99    \\
+		Reduced Features & 0.95 & 0.99     \\[1ex]
+		\hline
+	\end{tabular}
+\end{center}
+	\caption{Results of the XGBoost Classifier}
+	\label{table:xgboost-results}
+\end{table}
+
+We can see that there is marginal difference in~\autoref{table:xgboost-results}. Additionally, we can see by the ROC curves, that the loss is marginal compared to the significant gain of a 50 percent feature reduction from~\autoref{fig:xg-roc-curve} to~\autoref{fig:xg-roc-curve-reduced}.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=2.5in]{xg-roc-curve}
+		\caption{XGBoost ROC Curve with all features}\label{fig:xg-roc-curve}
+	\end{center}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=2.5in]{xg-roc-curve-reduced}
+		\caption{XGBoost ROC Curve with reduced features}\label{fig:xg-roc-curve-reduced}
+	\end{center}
+\end{figure}
+
+\subsubsection{SVM}
+
+Support vector machine classifiers in general and unsurprisingly perform worse than XGBoost, but they do also have a marginal decrease in accuracy for a reduced feature set.
+
+\begin{table}[h!]
+    \begin{center}
+	\begin{tabular}{| c | c c |}
+		\hline
+		Features & F1-Score & AUC-Score\\ [0.5ex]
+		\hline
+		All Features & 0.94 & 0.98    \\
+		Reduced Features & 0.91 & 0.98     \\[1ex]
+		\hline
+	\end{tabular}
+\end{center}
+	\caption{Results of the SVM Classifier}
+	\label{table:svm-results}
+\end{table}
+
+Again, we only see a 0.03 decrese in the F1-score within~\autoref{table:svm-results}. This is a small and negligible tradeoff, and when we compare the ROC curves~\autoref{fig:svm-roc-curve} and~\autoref{fig:svm-roc-curve-reduced}, we see the difference is even slimmer.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=2.5in]{svm-roc-curve}
+		\caption{SVM ROC Curve with all features}\label{fig:svm-roc-curve}
+	\end{center}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=2.5in]{svm-roc-curve-reduced}
+		\caption{SVM ROC Curve with reduced features}\label{fig:svm-roc-curve-reduced}
+	\end{center}
+\end{figure}
+
+
 
 \section{Conclusion}
 
@@ -640,7 +747,7 @@ Before implementing the memetic algorithm for feature optimisation with each cla
 %\begin{figure}[!t]
 %\centering
 %\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
+% where an .eps filename suffix will be assumed under latex,
 % and a .pdf suffix will be assumed for pdflatex; or what has been declared
 % via \DeclareGraphicsExtensions.
 %\caption{Simulation results for the network.}
@@ -656,7 +763,7 @@ Before implementing the memetic algorithm for feature optimisation with each cla
 % The subfigure \label commands are set within each subfloat command,
 % and the \label for the overall figure must come after \caption.
 % \hfil is used as a separator to get equal spacing.
-% Watch out that the combined width of all the subfigures on a 
+% Watch out that the combined width of all the subfigures on a
 % line do not exceed the text width or a line break will occur.
 %
 %\begin{figure*}[!t]
@@ -713,7 +820,7 @@ Before implementing the memetic algorithm for feature optimisation with each cla
 % in-text middle ("here") positioning is typically not used, but it
 % is allowed and encouraged for Computer Society conferences (but
 % not Computer Society journals). Most IEEE journals/conferences use
-% top floats exclusively. 
+% top floats exclusively.
 % Note that, LaTeX2e, unlike IEEE journals/conferences, places
 % footnotes above bottom floats. This can be corrected via the
 % \fnbelowfloat command of the stfloats package.
@@ -748,20 +855,6 @@ The authors would like to thank...
 % The "triggered" command can be changed if desired:
 %\IEEEtriggercmd{\enlargethispage{-5in}}
 
-% references section
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
 \newpage
 \printbibliography
 
